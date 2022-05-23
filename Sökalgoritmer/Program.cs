@@ -10,8 +10,97 @@ namespace Sökalgoritmer
     {
         static void Main(string[] args)
         {
+            // ****UPPGIFT 1****
 
             List<int> numbers = new List<int>();
+            int[] antal = { 10, 50 };
+
+            for (int i = 0; i < antal.Length; i++)
+            {
+                Console.WriteLine($"Skapar antal tärningskast = {antal[i]}");
+                Console.WriteLine("Sortera tärningskast stigande eller fallande, s eller f:");
+                string sf = Console.ReadLine();
+                // sf = stigande/fallande
+
+                RandomNumberGenerator(numbers, antal[i]);
+
+                DateTime starttid = DateTime.Now;
+                if (sf == "s")
+                {
+                    BubbleSortStigande(numbers);
+                    for (int a = 0; a < numbers.Count; a++)
+                    {
+                        Console.Write($"{numbers[a]}, ");
+                    }
+                    Console.WriteLine();
+                }
+                if (sf == "f")
+                {
+                    BubbleSortFallande(numbers);
+                    for (int a = 0; a < numbers.Count; a++)
+                    {
+                        Console.Write($"{numbers[a]}, ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+            static int RandomNumberGenerator(List<int> numbers, int antal)
+            {
+                Random r = new Random();
+                for (int i = 0; i < antal; i++)
+                {
+                    int randomnumber = r.Next(1, 7);
+                    numbers.Add(randomnumber);
+                }
+                return -1;
+            }
+
+            static void BubbleSortStigande(List<int> numbers)
+            {
+                bool needToSortNumbers = true;
+
+                for (int i = 0; i < numbers.Count - 1 && needToSortNumbers; i++)
+                {
+                    needToSortNumbers = false;
+
+                    for (int j = 0; j < numbers.Count - 1; j++)
+                    {
+                        if (numbers[j] > numbers[j + 1])
+                        {
+                            needToSortNumbers = true;
+                            int tempNumber = numbers[j + 1];
+                            numbers[j + 1] = numbers[j];
+                            numbers[j] = tempNumber;
+                        }
+                    }
+                }
+            }
+
+            static void BubbleSortFallande(List<int> numbers)
+            {
+                bool needToSortNumbers = true;
+
+                for (int i = numbers.Count; i > 0 + 1 && needToSortNumbers; i--)
+                {
+                    needToSortNumbers = false;
+
+                    for (int j = 0; j < numbers.Count - 1; j++)
+                    {
+                        if (numbers[j] < numbers[j + 1])
+                        {
+                            needToSortNumbers = true;
+                            int tempNumber = numbers[j + 1];
+                            numbers[j + 1] = numbers[j];
+                            numbers[j] = tempNumber;
+                        }
+                    }
+                }
+            }
+
+
+            // ****UPPGIFT 2****
+            /*List<int> numbers = new List<int>();
             Random r = new Random();
             Console.WriteLine("Skapar slumpad längd av 1000");
             int datalängd = 1000;
@@ -97,7 +186,7 @@ namespace Sökalgoritmer
             SekventiellSök(numbers, tal);
             TimeSpan deltatid3 = DateTime.Now - starttid3;
             Console.WriteLine("Det tog {0:0.00} ms att Sekventiellsöka.", deltatid3.TotalMilliseconds);
-            
+
             static int SekventiellSök(List<int> number, int värde)
             {
                 if (number == null)
@@ -111,7 +200,7 @@ namespace Sökalgoritmer
                     }
                 }
                 return -1;
-            }
+            }*/
         }
     }
 }
